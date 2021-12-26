@@ -1,3 +1,41 @@
+<script>
+    function LoadFunction() {
+
+        <?php
+        if ($this->session->flashdata('msg') == 'success') {
+
+        ?>
+            Swal.fire(
+                'Data Saved Successfully !',
+                '',
+                'success'
+            )
+        <?php
+        } elseif ($this->session->flashdata('msg') == 'update_success') {
+        ?>
+            Swal.fire(
+                'Data Updated Successfully !',
+                '',
+                'success'
+            )
+        <?php
+        } elseif ($this->session->flashdata('msg') == 'deleted') {
+
+        ?>
+            Swal.fire(
+                'Data Deleted Successfully !',
+                '',
+                'success'
+            )
+        <?php
+        }
+        ?>
+    }
+</script>
+
+
+
+
 <div class="wrapper">
     <!-- Navbar -->
 
@@ -178,7 +216,7 @@
                     <h4 class="modal-title">Update Borrowing record</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                 </div>
-                <form id="form_data" method="post" action="update_borrowbook">
+                <form id="form_data" method="post" action="Borrow_books/update_borrowbook">
                     <div class="modal-body">
 
 
@@ -246,7 +284,7 @@
                     <h4 class="modal-title">Borrow</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                 </div>
-                <form id="form_data" method="post" action="addBorrowBook">
+                <form id="form_data" method="post" action="Borrow_books/addBorrowBook">
                     <div class="modal-body">
 
 
@@ -308,7 +346,7 @@
                     <h4 class="modal-title">Return</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                 </div>
-                <form id="form_data" method="post" action="returnbook">
+                <form id="form_data" method="post" action="Borrow_books/returnbook">
                     <div class="modal-body">
 
 

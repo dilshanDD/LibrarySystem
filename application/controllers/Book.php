@@ -26,11 +26,11 @@ class Book extends CI_Controller
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
     public function index()
-
-
     {
-        $book['bookdetails'] = $this->user_model->get_books();
 
+        $book = $this->user_model->get_books();
+
+        $data['bookdetails'] = $book;
 
         $object['controller'] = $this;
         $object['active_tab'] = "managebooks";
@@ -39,7 +39,7 @@ class Book extends CI_Controller
 
         $this->load->view('include/header', $object);
         $this->load->view('include/sidebar');
-        $this->load->view('books/books', $book);
+        $this->load->view('books/books', $data);
         $this->load->view('include/footer');
     }
 
@@ -49,9 +49,8 @@ class Book extends CI_Controller
         $this->load->model('user_model');
         $data = $this->user_model->insert_book();
 
-        $this->session->set_flashdata('msg', 'success');
-
         if ($data) {
+            $this->session->set_flashdata('msg', 'success');
             redirect('Book');
         }
     }
@@ -59,8 +58,9 @@ class Book extends CI_Controller
     {
         $this->load->model('user_model');
         $data = $this->user_model->update_book();
-        $this->session->set_flashdata('msg', 'update_success');
+
         if ($data) {
+            $this->session->set_flashdata('msg', 'update_success');
             redirect('Book');
         }
     }
@@ -70,14 +70,25 @@ class Book extends CI_Controller
         $data = $this->user_model->delete_book();
 
         if ($data) {
+            $this->session->set_flashdata('msg', 'deleted');
             redirect('Book');
         }
     }
 
     public function getbookcopyByID()
     {
-        $bookcopyID['bookcopydetails'] = $this->user_model->getbookcopyByID();
-        redirect('Book');
+
+        $book['bookcopydetails'] = $this->user_model->getbookscopyByID();
+
+        $object['controller'] = $this;
+        $object['active_tab'] = "book_copies";
+        $object['active_main_tab'] = "books";
+        $object['title'] = "bookcopies";
+
+        $this->load->view('include/header', $object);
+        $this->load->view('include/sidebar');
+        $this->load->view('books/book_copies', $book);
+        $this->load->view('include/footer');
     }
 
     public function damagedbooks()
@@ -122,13 +133,4 @@ class Book extends CI_Controller
             redirect('Book/damagedbooks');
         }
     }
-
-    // public function clickme()
-    // {
-
-
-    //     $this->session->set_flashdata('msg', 'success');
-
-    //     $this->load->view('books/msg');
-    // }
 }

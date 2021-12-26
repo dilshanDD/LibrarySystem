@@ -47,9 +47,10 @@ class Book_copies extends CI_Controller
     {
         $this->load->model('user_model');
         $data = $this->user_model->insert_bookcopy();
-        $this->session->set_flashdata('msg', 'boook_copy_added');
+
         if ($data) {
-            redirect('Book/viewbooks');
+            $this->session->set_flashdata('msg', 'success');
+            redirect('Book');
         }
     }
 
@@ -59,6 +60,7 @@ class Book_copies extends CI_Controller
         $data = $this->user_model->update_bookcopy();
 
         if ($data) {
+            $this->session->set_flashdata('msg', 'update_success');
             redirect('Book_copies');
         }
     }
@@ -68,6 +70,7 @@ class Book_copies extends CI_Controller
         $data = $this->user_model->delete_bookcopy();
 
         if ($data) {
+            $this->session->set_flashdata('msg', 'deleted');
             redirect('Book_copies');
         }
     }

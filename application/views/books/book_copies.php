@@ -1,3 +1,40 @@
+<script>
+    function LoadFunction() {
+
+        <?php
+        if ($this->session->flashdata('msg') == 'success') {
+
+        ?>
+            Swal.fire(
+                'Data Saved Successfully !',
+                '',
+                'success'
+            )
+        <?php
+        } elseif ($this->session->flashdata('msg') == 'update_success') {
+        ?>
+            Swal.fire(
+                'Data Updated Successfully !',
+                '',
+                'success'
+            )
+        <?php
+        } elseif ($this->session->flashdata('msg') == 'deleted') {
+
+        ?>
+            Swal.fire(
+                'Data Deleted Successfully !',
+                '',
+                'success'
+            )
+        <?php
+        }
+        ?>
+    }
+</script>
+
+
+
 <div class="wrapper">
     <!-- Navbar -->
 
@@ -59,13 +96,7 @@
                                                 <td> <?php echo $bookcopy['purchase_date'] ?> </td>
                                                 <td> <?php echo $bookcopy['price'] ?> </td>
                                                 <td> <button class="btn btn-outline-success btn-sm rounded-0  editbtn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button> </td>
-
-                                                <td>
-                                                    <form action="deletebookcopy" method="POST">
-                                                        <button name="book_copyID" value="<?php echo $bookcopy['book_copyID'] ?>" class="btn btn-outline-danger btn-sm rounded-0" type="submit" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
-
-                                                    </form>
-                                                </td>
+                                                <td><button class="btn btn-outline-danger btn-sm rounded-0 deletebtn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button></td>
                                             </tr>
 
 
@@ -109,7 +140,7 @@
                     <h4 class="modal-title">Update</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                 </div>
-                <form id="form_data" method="post" action="updatebookcopy">
+                <form id="form_data" method="post" action="Book_copies/updatebookcopy">
                     <div class="modal-body">
 
 
@@ -161,7 +192,44 @@
         <!-- /.update modal-content -->
     </div>
 
-    <!-- /.modal-dialog -->
+    <!-- Modal HTML -->
+    <div id="deletemodal" class="modal fade">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header flex-column">
+                    <div class="icon-box">
+                        <i class="material-icons">&#xE5CD;</i>
+                    </div>
+                    <h4 class="modal-title w-100">Are you sure?</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Do you really want to delete these records? This process cannot be undone.</p>
+                </div>
+                <div class="modal-footer justify-content-center">
+
+                    <form id="form_data" method="post" action="book_copies/deletebookcopy">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input class="form-control input-rounded" name="book_copyID" id="DBook_copyID" type="hidden">
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+                            <button type="submit" class="btn btn-danger ">
+                                Delete
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 
@@ -192,5 +260,30 @@
         });
     });
 </script>
+
+
+<script>
+    $(document).ready(function() {
+        $('.deletebtn').on('click', function() {
+            $('#deletemodal').modal('show');
+
+            $tr = $(this).closest('tr');
+
+            var data = $tr.children("td").map(function() {
+                return $(this).text();
+            }).get();
+
+            console.log(data);
+
+            $('#DBook_copyID').val(data[0]);
+
+
+        });
+    });
+</script>
+
+
+
+
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="sweetalert2.all.min.js"></script>

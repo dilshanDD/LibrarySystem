@@ -115,6 +115,8 @@ class user_model extends CI_Model
     }
     ////////////////////////////////////////////////Books
 
+
+
     public function get_books()
     {
         $this->db->select('*');
@@ -186,7 +188,7 @@ class user_model extends CI_Model
 
     public function delete_book()
     {
-        $id = $this->input->post('book_id', TRUE);
+        $id = trim($this->input->post('book_id', TRUE));
 
         $this->db->where('book_id', $id);
         $this->db->delete('books');
@@ -306,7 +308,7 @@ class user_model extends CI_Model
 
     public function update_bookcopy()
     {
-        $id = $this->input->post('book_copyID', TRUE);
+        $id = trim($this->input->post('book_copyID', TRUE));
         $bdata = [
 
             'status' => $this->input->post('status', TRUE),
@@ -323,15 +325,17 @@ class user_model extends CI_Model
 
     public function delete_bookcopy()
     {
-        $id = $this->input->post('book_copyID', TRUE);
+        $id = trim($this->input->post('book_copyID', TRUE));
 
         $this->db->where('book_copyID', $id);
         $this->db->delete('book_copy');
         return true;
     }
-    public function getbookcopyByID()
+    public function getbookscopyByID()
     {
-        $id = $this->input->post('book_id', TRUE);
+
+        $id = trim($this->input->post('book_id', TRUE));
+        echo ($id);
 
         $this->db->select('*');
         $this->db->from('book_copy');
@@ -489,7 +493,6 @@ class user_model extends CI_Model
 
 
 
-
     /////////////////////////// Borrow Books 
 
     public function get_borrowbooks()
@@ -517,19 +520,21 @@ class user_model extends CI_Model
     public function update_borrowbooks()
     {
 
-        $bid = $this->input->post('book_copyID', TRUE);
+        $bid = trim($this->input->post('book_copyID', TRUE));
+        $stid = trim($this->input->post('student_ID', TRUE));
 
         $bdata = [
 
             'checkout_date' => $this->input->post('checkout_date', TRUE),
             'return_date' => $this->input->post('return_date', TRUE),
+            'status' => $this->input->post('status', TRUE)
 
 
         ];
 
 
 
-        $this->db->where('book_copyID = ', $bid, '& status = ', "not_received");
+        $this->db->where('book_copyID = ', $bid, '& student_ID = ', $stid, '& return_date >', Date('yy mm dd'));
         $this->db->update('borrow_book', $bdata);
         return true;
     }
@@ -537,7 +542,7 @@ class user_model extends CI_Model
     public function receive_book()
     {
 
-        $bid = $this->input->post('book_copyID', TRUE);
+        $bid = trim($this->input->post('book_copyID', TRUE));
 
         $bdata = [
 
@@ -554,9 +559,6 @@ class user_model extends CI_Model
         $this->db->update('borrow_book', $bdata);
         return true;
     }
-
-
-
 
 
     /////////////////////////////////////////////// Reports

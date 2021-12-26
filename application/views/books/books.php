@@ -6,7 +6,7 @@
 
         ?>
             Swal.fire(
-                'Data Saved successfully !',
+                'Data Saved Successfully !',
                 '',
                 'success'
             )
@@ -14,16 +14,16 @@
         } elseif ($this->session->flashdata('msg') == 'update_success') {
         ?>
             Swal.fire(
-                'Data Updated successfully !',
+                'Data Updated Successfully !',
                 '',
                 'success'
             )
         <?php
-        } elseif ($this->session->flashdata('msg') == 'boook_copy_added') {
+        } elseif ($this->session->flashdata('msg') == 'deleted') {
 
         ?>
             Swal.fire(
-                'Book Copy Added successfully !',
+                'Data Deleted Successfully !',
                 '',
                 'success'
             )
@@ -103,18 +103,14 @@
                                                 <td> <?php echo $book['category'] ?> </td>
                                                 <td> <?php echo $book['auth_firstname'] ?> </td>
                                                 <td> <?php echo $book['auth_lastname'] ?> </td>
-                                                <td><button class="btn btn-outline-primary btn-sm rounded-0  viewcopytbtn" type="button" data-toggle="tooltip" data-placement="top" title="View Book Copies"><i class="fa fa-eye"></i></button> </td>
+
+                                                <form action="Book/getbookcopyByID" method="POST">
+                                                    <td><button class="btn btn-outline-primary btn-sm rounded-0" name="book_id" value="<?php echo $book['book_id'] ?>" type="submit" data-toggle="tooltip" data-placement="top" title="View Book Copies"><i class="fa fa-eye"></i></button> </td>
+                                                </form>
                                                 <td><button class="btn btn-outline-primary btn-sm rounded-0  newcopybtn" type="button" data-toggle="tooltip" data-placement="top" title="Add New Book Copy"><i class="fa fa-table"></i></button> </td>
                                                 <td> <button class="btn btn-outline-success btn-sm rounded-0  editbtn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button> </td>
-                                                <td>
-                                                    <form action="deletebook" method="POST">
-                                                        <button name="book_id" value="<?php echo $book['book_id'] ?>" class="btn btn-outline-danger btn-sm rounded-0" type="submit" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
-
-                                                    </form>
-                                                </td>
+                                                <td><button class="btn btn-outline-danger btn-sm rounded-0  deletebtn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button></td>
                                             </tr>
-
-
                                         <?php
                                         }
 
@@ -151,78 +147,6 @@
     <!-- /.content-wrapper -->
 
 
-
-    <div class="modal fade" id="view_bookcopy">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Copies</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-                </div>
-                <div class="card-body">
-                    <form action=" " method="POST">
-
-
-                        <button type="button" class="btn btn-success">Refresh</button>
-
-
-                    </form>
-
-
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>Book copy ID</th>
-                                <th>Book ID</th>
-                                <th>Status</th>
-                                <th>Purchase Date</th>
-                                <th>Price</th>
-
-
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            foreach ($bookdetails  as $bookcopy) {
-
-                            ?>
-
-                                <tr>
-
-                                    <td> <?php echo $bookcopy['book_id'] ?> </td>
-                                    <td> <?php  ?> </td>
-                                    <td> <?php  ?> </td>
-                                    <td> <?php ?> </td>
-                                    <td> <?php  ?> </td>
-
-
-                                </tr>
-
-
-                            <?php
-                            }
-
-                            ?>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Book copy ID</th>
-                                <th>Book ID</th>
-                                <th>Status</th>
-                                <th>Purchase Date</th>
-                                <th>Price</th>
-
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-
     <div class="modal fade" id="add_newbookcopy">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -230,7 +154,7 @@
                     <h4 class="modal-title">Add New Book Copy</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                 </div>
-                <form id="form_data" method="post" action="../Book_copies/addbookcopy">
+                <form id="form_data" method="post" action="Book_copies/addbookcopy">
                     <div class="modal-body">
 
 
@@ -283,14 +207,6 @@
     <!-- /.modal-dialog -->
 
 
-
-
-
-
-
-
-
-
     <div class="modal fade" id="modal-user">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -298,7 +214,7 @@
                     <h4 class="modal-title">Add New Book</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                 </div>
-                <form id="form_data" method="post" action="addbooks">
+                <form id="form_data" method="post" action="Book/addbooks">
                     <div class="modal-body">
 
 
@@ -358,7 +274,7 @@
                     <h4 class="modal-title">Update</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                 </div>
-                <form id="form_data" method="post" action="updatebook">
+                <form id="form_data" method="post" action="book/updatebook">
                     <div class="modal-body">
 
 
@@ -415,7 +331,49 @@
         <!-- /.update modal-content -->
     </div>
 
-    <!-- /.modal-dialog -->
+
+
+    <!-- Modal HTML -->
+    <div id="deletemodal" class="modal fade">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header flex-column">
+                    <div class="icon-box">
+                        <i class="material-icons">&#xE5CD;</i>
+                    </div>
+                    <h4 class="modal-title w-100">Are you sure?</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Do you really want to delete these records? This process cannot be undone.</p>
+                </div>
+                <div class="modal-footer justify-content-center">
+
+                    <form id="form_data" method="post" action="Book/deletebook">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input class="form-control input-rounded" name="book_id" id="Dbook_id" type="hidden">
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+                            <button type="submit" class="btn btn-danger ">
+                                Delete
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
 </div>
 
 
@@ -450,24 +408,23 @@
     });
 </script>
 
+
 <script>
     $(document).ready(function() {
         $('.viewcopytbtn').on('click', function() {
-
-
-            $('#view_bookcopy').modal('show');
 
             $tr = $(this).closest('tr');
 
             var data = $tr.children("td").map(function() {
                 return $(this).text();
             }).get();
+            $bk_id = data[0];
+            var bkID = $bk_id.trim();
 
-            console.log(data);
+            console.log(bkID);
 
-            $('#book_id').val(data[0]);
-
-
+            $('#view_bookcopy').modal('show');
+            $('#BK_ID').val(data[0]);
 
 
         });
@@ -491,12 +448,30 @@
 
             $('#book_id').val(data[0]);
 
+        });
+    });
+</script>
 
+<script>
+    $(document).ready(function() {
+        $('.deletebtn').on('click', function() {
+            $('#deletemodal').modal('show');
 
+            $tr = $(this).closest('tr');
+
+            var data = $tr.children("td").map(function() {
+                return $(this).text();
+            }).get();
+
+            console.log(data);
+
+            $('#Dbook_id').val(data[0]);
+            console.log("This is Staff ID" + data[0]);
 
         });
     });
 </script>
+
 
 
 

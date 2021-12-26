@@ -49,6 +49,7 @@ class Borrow_books extends CI_Controller
         $data = $this->user_model->addBorrow_books();
 
         if ($data) {
+            $this->session->set_flashdata('msg', 'success');
             redirect('Borrow_books');
         }
     }
@@ -58,9 +59,8 @@ class Borrow_books extends CI_Controller
         $data = $this->user_model->update_borrowbooks();
 
         if ($data) {
+            $this->session->set_flashdata('msg', 'update_success');
             redirect('Borrow_books');
-        } else {
-            echo ('error');
         }
     }
 
@@ -70,17 +70,9 @@ class Borrow_books extends CI_Controller
         $data = $this->user_model->receive_book();
 
         if ($data) {
+            $this->session->set_flashdata('msg', 'update_success');
             redirect('Borrow_books');
-        } else {
-            echo ('error');
         }
     }
-
-
-
-    public function getbookcopyByID()
-    {
-        $bookcopyID['bookcopydetails'] = $this->user_model->getbookcopyByID();
-        redirect('Book/viewbooks');
-    }
+    
 }
