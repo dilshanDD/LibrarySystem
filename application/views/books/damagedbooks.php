@@ -1,3 +1,39 @@
+<script>
+    function LoadFunction() {
+
+        <?php
+        if ($this->session->flashdata('msg') == 'success') {
+
+        ?>
+            Swal.fire(
+                'Data Saved Successfully !',
+                '',
+                'success'
+            )
+        <?php
+        } elseif ($this->session->flashdata('msg') == 'update_success') {
+        ?>
+            Swal.fire(
+                'Data Updated Successfully !',
+                '',
+                'success'
+            )
+        <?php
+        } elseif ($this->session->flashdata('msg') == 'deleted') {
+
+        ?>
+            Swal.fire(
+                'Data Deleted Successfully !',
+                '',
+                'success'
+            )
+        <?php
+        }
+        ?>
+    }
+</script>
+
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Main content -->
@@ -38,15 +74,7 @@
                                             <td> <?php echo $damaged['damaged_date'] ?> </td>
                                             <td> <?php echo $damaged['description'] ?> </td>
                                             <td> <button class="btn btn-outline-success btn-sm rounded-0  editbtn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button> </td>
-
-                                            <td>
-                                                <form action="delete_damagedbook" method="POST">
-                                                    <button name="damagedbook_ID" value="<?php echo $damaged['damagedbook_ID'] ?>" class="btn btn-outline-danger btn-sm rounded-0" type="submit" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
-
-                                                </form>
-                                            </td>
-
-
+                                            <td><button class="btn btn-outline-danger btn-sm rounded-0 deletebtn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button></td>
                                         </tr>
 
 
@@ -98,11 +126,14 @@
                             <label>Book Copy ID</label>
                             <input class="form-control input-rounded" name="book_copyID" placeholder="Book Copy ID" type="text">
                         </div>
+
+
                         <div class="form-group">
-                            <li class="fa fa-eye">&nbsp;&nbsp;</li>
+                            <li class="fa fa-envelope">&nbsp;&nbsp;</li>
                             <label>Damaged Date</label>
-                            <input class="form-control input-rounded" name="damaged_date" placeholder="Damaged Date" type="text">
+                            <input class="form-control input-rounded" type="text" name="damaged_date" placeholder="Damaged Date" id="datepicker1"></p>
                         </div>
+
                         <div class="form-group">
                             <li class="fa fa-eye">&nbsp;&nbsp;</li>
                             <label>Description</label>
@@ -143,35 +174,25 @@
 
                         <div class="form-group">
                             <li class="fa fa-key">&nbsp;&nbsp;</li>
-                            <label>ID</label>
-                            <input class="form-control input-rounded" id="id" name="id" placeholder="ID" type="text">
+                            <label>Damaged Book ID</label>
+                            <input class="form-control input-rounded" id="damagedbook_ID" name="damagedbook_ID" type="text">
                         </div>
 
                         <div class="form-group">
                             <li class="fa fa-key">&nbsp;&nbsp;</li>
-                            <label>Staff ID</label>
-                            <input class="form-control input-rounded" id="staff_id" name="staff_id" placeholder="Staff ID" type="text">
-                        </div>
-                        <div class="form-group">
-                            <li class="fa fa-envelope">&nbsp;&nbsp;</li>
-                            <label>Book ID</label>
-                            <input class="form-control input-rounded" id="book_id" name="book_id" placeholder="Book ID" type="text">
+                            <label>Book Copy ID</label>
+                            <input class="form-control input-rounded" id="book_copyID" name="book_copyID" type="text">
                         </div>
 
                         <div class="form-group">
                             <li class="fa fa-eye">&nbsp;&nbsp;</li>
-                            <label>Student ID</label>
-                            <input class="form-control input-rounded" id="student_id" name="student_id" placeholder="Student ID" type="text">
-                        </div>
-                        <div class="form-group">
-                            <li class="fa fa-eye">&nbsp;&nbsp;</li>
                             <label>Damaged Date</label>
-                            <input class="form-control input-rounded" id="damaged_date" name="damaged_date" placeholder="Damaged Date" type="text">
+                            <input class="form-control input-rounded" id="damaged_date" name="damaged_date" type="text">
                         </div>
                         <div class="form-group">
                             <li class="fa fa-eye">&nbsp;&nbsp;</li>
                             <label>Description</label>
-                            <input class="form-control input-rounded" id="description" name="description" placeholder="Description" type="text">
+                            <input class="form-control input-rounded" id="description" name="description" type="text">
                         </div>
 
 
@@ -183,7 +204,7 @@
                         <a href="javascript:;" class="btn btn-sm btn-white m-r-5 m-b-5" data-dismiss="modal">Close</a>
                         <button type="submit" class="btn btn-sm btn-primary m-r-5 m-b-5 ">
                             <i class="fa fa-user"></i>
-                            Submit
+                            Update
                         </button>
                     </div>
                 </form>
@@ -193,48 +214,43 @@
     </div>
     <!-- /.modal-dialog -->
 
-
-
-
-    <div class="modal fade" id="modal-role">
-        <div class="modal-dialog">
+    <div id="deletemodal" class="modal fade">
+        <div class="modal-dialog modal-confirm">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">New Category</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <div class="modal-header flex-column">
+                    <div class="icon-box">
+                        <i class="material-icons">&#xE5CD;</i>
+                    </div>
+                    <h4 class="modal-title w-100">Are you sure?</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
-                <form id="form_data" method="post" action="">
-                    <div class="modal-body">
+                <div class="modal-body">
+                    <p>Do you really want to delete these records? This process cannot be undone.</p>
+                </div>
+                <div class="modal-footer justify-content-center">
 
+                    <form id="form_data" method="post" action="delete_damagedbook">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input class="form-control input-rounded" name="damagedbook_ID" id="Ddamagedbook_ID" type="hidden">
+                            </div>
 
-                        <div class="form-group">
-                            <li class="fa fa-user">&nbsp;&nbsp;</li>
-                            <label for="input_role">Category</label>
-                            <br />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 
-                            <input class="form-control input-rounded" name="category" id="input_role" placeholder="Book Category" required="" type="text">
-                            <label id="input_username-error" style="display:none; color:red;" class="error" for="input_category">Username Already Exists...!</label>
+                            <button type="submit" class="btn btn-danger ">
+                                Delete
+                            </button>
                         </div>
 
+                    </form>
 
-
-
-                    </div>
-
-
-                    <div class="modal-footer">
-                        <a href="javascript:;" class="btn btn-sm btn-white m-r-5 m-b-5" data-dismiss="modal">Close</a>
-                        <button type="submit" class="btn btn-sm btn-primary m-r-5 m-b-5 ">
-                            <i class="fa fa-user"></i>
-                            Submit
-                        </button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
-        <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
+
 </div>
 
 
@@ -254,16 +270,41 @@
 
             console.log(data);
 
-            $('#id').val(data[0]);
-            $('#staff_id').val(data[1]);
-            $('#book_id').val(data[2]);
-            $('#student_id').val(data[3]);
-            $('#damaged_date').val(data[4]);
-            $('#description').val(data[5]);
+            $('#damagedbook_ID').val(data[0]);
+            $('#book_copyID').val(data[1]);
+            $('#damaged_date').val(data[2]);
+            $('#description').val(data[3]);
+
+        });
+    });
+</script>
 
 
+<script>
+    $(document).ready(function() {
+        $('.deletebtn').on('click', function() {
+            $('#deletemodal').modal('show');
 
+            $tr = $(this).closest('tr');
 
+            var data = $tr.children("td").map(function() {
+                return $(this).text();
+            }).get();
+
+            console.log(data);
+
+            $('#Ddamagedbook_ID').val(data[0]);
+            console.log("This is damaged BOOK" + data[0]);
+
+        });
+    });
+</script>
+
+<script>
+    $(function() {
+
+        $('#datepicker1').datepicker({
+            dateFormat: 'yy-mm-dd'
         });
     });
 </script>

@@ -140,33 +140,36 @@
                     <h4 class="modal-title">Update</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                 </div>
-                <form id="form_data" method="post" action="Book_copies/updatebookcopy">
+                <form id="form_data" method="post" action="book_copies/updatebookcopy">
                     <div class="modal-body">
 
 
                         <div class="form-group">
                             <li class="fa fa-user">&nbsp;&nbsp;</li>
                             <label>Book Copy ID</label>
-                            <input type="text" class="form-control input-rounded" name="book_copyID" id="book_copyID" placeholder="Book copy ID" type="text">
+                            <input type="text" class="form-control input-rounded" name="book_copyID" id="book_copyID" type="text">
 
                         </div>
                         <div class="form-group">
                             <li class="fa fa-user">&nbsp;&nbsp;</li>
                             <label>Book ID</label>
-                            <input type="text" class="form-control input-rounded" name="book_id" id="book_id" placeholder="Book ID" type="text">
+                            <input type="text" class="form-control input-rounded" name="book_id" id="book_id" type="text">
 
                         </div>
 
                         <div class="form-group">
-                            <li class="fa fa-user">&nbsp;&nbsp;</li>
+                            <li class="fas fa-user-shield">&nbsp;&nbsp;</li>
                             <label>Status</label>
-                            <input class="form-control input-rounded" name="status" id="status" placeholder="Status" type="text">
-
+                            <select class="form-control m-b-sm input-rounded" name="status">
+                                <option value="available">Available</option>
+                                <option value="un_available">Unavailable</option>
+                            </select>
                         </div>
+
                         <div class="form-group">
                             <li class="fa fa-user">&nbsp;&nbsp;</li>
                             <label>Purchase Date</label>
-                            <input class="form-control input-rounded" name="purchase_date" id="purchase_date" placeholder="Purchase Date" type="text">
+                            <input class="form-control input-rounded" name="purchase_date" id="purchase_date" type="text">
 
                         </div>
 
@@ -174,7 +177,7 @@
                         <div class="form-group">
                             <li class="fa fa-key">&nbsp;&nbsp;</li>
                             <label>Price</label>
-                            <input class="form-control input-rounded" name="price" id="price" placeholder="Price" type="text">
+                            <input class="form-control input-rounded" name="price" id="price" type="text">
                         </div>
 
 

@@ -105,7 +105,7 @@ if (!isset($active_main_tab))
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?php echo base_url() ?>Book" class="nav-link <?php if ($active_tab == 'managebooks') echo "active" ?>">
+                            <a href="<?php echo base_url() ?>Book/AllBooks" class="nav-link <?php if ($active_tab == 'managebooks') echo "active" ?>">
 
                                 <i class="fas fa-swatchbook"></i>
                                 <p>Manage Books</p>

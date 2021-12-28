@@ -25,7 +25,7 @@ class Book extends CI_Controller
      * map to /index.php/welcome/<method_name>
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
-    public function index()
+    public function AllBooks()
     {
 
         $book = $this->user_model->get_books();
@@ -75,21 +75,7 @@ class Book extends CI_Controller
         }
     }
 
-    public function getbookcopyByID()
-    {
 
-        $book['bookcopydetails'] = $this->user_model->getbookscopyByID();
-
-        $object['controller'] = $this;
-        $object['active_tab'] = "book_copies";
-        $object['active_main_tab'] = "books";
-        $object['title'] = "bookcopies";
-
-        $this->load->view('include/header', $object);
-        $this->load->view('include/sidebar');
-        $this->load->view('books/book_copies', $book);
-        $this->load->view('include/footer');
-    }
 
     public function damagedbooks()
     {
@@ -110,6 +96,7 @@ class Book extends CI_Controller
         $this->load->model('user_model');
         $data = $this->user_model->addamaged();
         if ($data) {
+            $this->session->set_flashdata('msg', 'success');
             redirect('Book/damagedbooks');
         }
     }
@@ -120,6 +107,7 @@ class Book extends CI_Controller
         $data = $this->user_model->update_damagedbook();
 
         if ($data) {
+            $this->session->set_flashdata('msg', 'update_success');
             redirect('Book/damagedbooks');
         }
     }
@@ -130,7 +118,19 @@ class Book extends CI_Controller
         $data = $this->user_model->delete_damagedbooks();
 
         if ($data) {
+            $this->session->set_flashdata('msg', 'deleted');
             redirect('Book/damagedbooks');
+        }
+    }
+
+    public function updatebookcopy()
+    {
+        $this->load->model('user_model');
+        $data = $this->user_model->update_bookcopy();
+
+        if ($data) {
+            $this->session->set_flashdata('msg', 'update_success');
+            redirect('Book_copies');
         }
     }
 }

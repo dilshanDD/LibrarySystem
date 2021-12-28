@@ -54,6 +54,22 @@ class Book_copies extends CI_Controller
         }
     }
 
+    public function getbookcopyByID()
+    {
+
+        $book['bookcopydetails'] = $this->user_model->getbookscopyByID();
+
+        $object['controller'] = $this;
+        $object['active_tab'] = "book_copies";
+        $object['active_main_tab'] = "books";
+        $object['title'] = "bookcopies";
+
+        $this->load->view('include/header', $object);
+        $this->load->view('include/sidebar');
+        $this->load->view('books/book_copies', $book);
+        $this->load->view('include/footer');
+    }
+
     public function updatebookcopy()
     {
         $this->load->model('user_model');
