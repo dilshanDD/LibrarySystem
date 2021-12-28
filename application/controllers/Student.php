@@ -7,7 +7,7 @@ class Student extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('user_model');
+        $this->load->model('student_model');
     }
 
     /**
@@ -27,7 +27,7 @@ class Student extends CI_Controller
      */
     public function index()
     {
-        $students['studentdetails'] = $this->user_model->get_students();
+        $students['studentdetails'] = $this->student_model->get_students();
 
         $object['controller'] = $this;
         $object['active_tab'] = "managestudents";
@@ -41,8 +41,8 @@ class Student extends CI_Controller
 
     public function Add_student()
     {
-        $this->load->model('user_model');
-        $data = $this->user_model->addStudent();
+        $this->load->model('student_model');
+        $data = $this->student_model->addStudent();
         if ($data) {
             $this->session->set_flashdata('msg', 'success');
             redirect('Student');
@@ -51,8 +51,8 @@ class Student extends CI_Controller
 
     public function updateStudent()
     {
-        $this->load->model('user_model');
-        $data = $this->user_model->update_student();
+        $this->load->model('student_model');
+        $data = $this->student_model->update_student();
 
         if ($data) {
             $this->session->set_flashdata('msg', 'update_success');
@@ -62,8 +62,8 @@ class Student extends CI_Controller
 
     public function deleteStudent()
     {
-        $this->load->model('user_model');
-        $data = $this->user_model->delete_student();
+        $this->load->model('student_model');
+        $data = $this->student_model->delete_student();
 
         if ($data) {
             $this->session->set_flashdata('msg', 'deleted');

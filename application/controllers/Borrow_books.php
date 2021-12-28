@@ -7,7 +7,7 @@ class Borrow_books extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('user_model');
+        $this->load->model('borrowbook_model');
     }
 
     /**
@@ -29,7 +29,7 @@ class Borrow_books extends CI_Controller
 
 
     {
-        $borrow['borrowdetails'] = $this->user_model->get_borrowbooks();
+        $borrow['borrowdetails'] = $this->borrowbook_model->get_borrowbooks();
 
 
         $object['controller'] = $this;
@@ -45,8 +45,8 @@ class Borrow_books extends CI_Controller
 
     public function addBorrowBook()
     {
-        $this->load->model('user_model');
-        $data = $this->user_model->addBorrow_books();
+        $this->load->model('borrowbook_model');
+        $data = $this->borrowbook_model->addBorrow_books();
 
         if ($data) {
             $this->session->set_flashdata('msg', 'success');
@@ -55,8 +55,8 @@ class Borrow_books extends CI_Controller
     }
     public function update_borrowbook()
     {
-        $this->load->model('user_model');
-        $data = $this->user_model->update_borrowbooks();
+        $this->load->model('borrowbook_model');
+        $data = $this->borrowbook_model->update_borrowbooks();
 
         if ($data) {
             $this->session->set_flashdata('msg', 'update_success');
@@ -66,13 +66,12 @@ class Borrow_books extends CI_Controller
 
     public function returnbook()
     {
-        $this->load->model('user_model');
-        $data = $this->user_model->receive_book();
+        $this->load->model('borrowbook_model');
+        $data = $this->borrowbook_model->receive_book();
 
         if ($data) {
             $this->session->set_flashdata('msg', 'update_success');
             redirect('Borrow_books');
         }
     }
-    
 }

@@ -7,7 +7,7 @@ class Membership extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('user_model');
+        $this->load->model('membership_model');
     }
 
     /**
@@ -29,7 +29,7 @@ class Membership extends CI_Controller
 
 
     {
-        $membership['membershipdetails'] = $this->user_model->get_membership();
+        $membership['membershipdetails'] = $this->membership_model->get_membership();
 
 
         $object['controller'] = $this;
@@ -47,13 +47,12 @@ class Membership extends CI_Controller
 
     public function addMembership()
     {
-        $this->load->model('user_model');
-        $data = $this->user_model->addMembership();
+        $this->load->model('membership_model');
+        $data = $this->membership_model->addMembership();
 
         if ($data) {
             $this->session->set_flashdata('msg', 'update_success');
             redirect('Student');
         }
     }
-    
 }

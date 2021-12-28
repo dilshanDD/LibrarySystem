@@ -7,7 +7,7 @@ class Report extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('user_model');
+        $this->load->model('report_model');
     }
 
     /**
@@ -37,14 +37,14 @@ class Report extends CI_Controller
         $this->load->view('dashboard');
         $this->load->view('include/footer');
 
-        $this->load->model('user_model');
+        $this->load->model('report_model');
     }
 
 
 
     public function damagedbooksreport()
     {
-        $dbooks['damagedBooks'] = $this->user_model->getDamagedBooks();
+        $dbooks['damagedBooks'] = $this->report_model->getDamagedBooks();
 
         $object['controller'] = $this;
         $object['active_tab'] = "report1";
@@ -59,7 +59,8 @@ class Report extends CI_Controller
     public function studentreport()
     {
 
-        $st['students'] = $this->user_model->get_students();
+        $this->load->model('student_model');
+        $st['students'] = $this->student_model->get_students();
 
 
 
@@ -77,7 +78,7 @@ class Report extends CI_Controller
     /////////////////////////////////////////////////////////Membership Income 
     public function membershipincomereport()
     {
-        $mem['membership'] = $this->user_model->membership_fee_generate();
+        $mem['membership'] = $this->report_model->membership_fee_generate();
 
 
         $object['controller'] = $this;
@@ -94,7 +95,7 @@ class Report extends CI_Controller
     public function latereturnreport()
     {
 
-        $late['late_return'] = $this->user_model->All_late_return();
+        $late['late_return'] = $this->report_model->All_late_return();
 
         $object['controller'] = $this;
         $object['active_tab'] = "report4";
@@ -112,7 +113,7 @@ class Report extends CI_Controller
     // public function export_csv()
     // {
     //     $file_name = 'File_name_' . date("Y-m-d h-i-s") . '.csv';
-    //     $query = $this->user_model->get_DamagedBook_Dates();
+    //     $query = $this->report_model->get_DamagedBook_Dates();
 
     //     $this->load->dbutil();
     //     $data = $this->dbutil->csv_from_result($query);
@@ -173,7 +174,7 @@ class Report extends CI_Controller
 
         $this->table->set_heading('Book Tittle', 'Damaged Book ID', 'Book Copy ID', 'Purchase Date', 'Damaged Date', 'Price');
 
-        $DBooks = $this->user_model->get_DamagedBook_Dates();
+        $DBooks = $this->report_model->get_DamagedBook_Dates();
 
         foreach ($DBooks as $bk) :
             $this->table->add_row($bk['book_tittle'], $bk['damagedbook_ID'], $bk['book_copyID'], $bk['purchase_date'], $bk['damaged_date'], $bk['price']);
@@ -253,7 +254,7 @@ class Report extends CI_Controller
 
         $this->table->set_heading('Student ID', 'Staff ID', 'NIC', 'Email', 'Phone', 'Address', 'First Name', 'Last Name', 'Registered Date');
 
-        $StudentR = $this->user_model->get_student_report();
+        $StudentR = $this->report_model->get_student_report();
 
         foreach ($StudentR as $st) :
             $this->table->add_row($st['student_ID'], $st['staff_id'], $st['NIC'], $st['email'], $st['phone'], $st['address'], $st['first_name'], $st['last_name'], $st['registered_date']);
@@ -333,7 +334,7 @@ class Report extends CI_Controller
 
         $this->table->set_heading('Student ID', 'First Name', 'Last Name', 'Membership ID', 'Expire Date', 'Renew Date', 'Renew Fee');
 
-        $memberR = $this->user_model->membership_report();
+        $memberR = $this->report_model->membership_report();
 
         foreach ($memberR as $mem) :
             $this->table->add_row($mem['student_id'], $mem['first_name'], $mem['last_name'], $mem['membership_ID'], $mem['expire_date'], $mem['renew_date'], $mem['renew_fee']);
@@ -411,7 +412,7 @@ class Report extends CI_Controller
 
         $this->table->set_heading('Student ID', 'First Name', 'Last Name', 'Phone', 'Book Copy ID', 'Book Tittle', 'Check Date', 'Return Date', 'Status');
 
-        $lateR = $this->user_model->late_return();
+        $lateR = $this->report_model->late_return();
 
         foreach ($lateR as $mem) :
             $this->table->add_row($mem['studentID'], $mem['first_name'], $mem['last_name'], $mem['phone'], $mem['book_copyID'], $mem['book_tittle'], $mem['checkout_date'], $mem['return_date'], $mem['status']);

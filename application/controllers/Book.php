@@ -7,7 +7,7 @@ class Book extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('user_model');
+        $this->load->model('book_model');
     }
 
     /**
@@ -25,10 +25,10 @@ class Book extends CI_Controller
      * map to /index.php/welcome/<method_name>
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
-    public function AllBooks()
+    public function index()
     {
 
-        $book = $this->user_model->get_books();
+        $book = $this->book_model->get_books();
 
         $data['bookdetails'] = $book;
 
@@ -46,8 +46,8 @@ class Book extends CI_Controller
 
     public function addbooks()
     {
-        $this->load->model('user_model');
-        $data = $this->user_model->insert_book();
+        $this->load->model('book_model');
+        $data = $this->book_model->insert_book();
 
         if ($data) {
             $this->session->set_flashdata('msg', 'success');
@@ -56,8 +56,8 @@ class Book extends CI_Controller
     }
     public function updatebook()
     {
-        $this->load->model('user_model');
-        $data = $this->user_model->update_book();
+        $this->load->model('book_model');
+        $data = $this->book_model->update_book();
 
         if ($data) {
             $this->session->set_flashdata('msg', 'update_success');
@@ -66,8 +66,8 @@ class Book extends CI_Controller
     }
     public function deletebook()
     {
-        $this->load->model('user_model');
-        $data = $this->user_model->delete_book();
+        $this->load->model('book_model');
+        $data = $this->book_model->delete_book();
 
         if ($data) {
             $this->session->set_flashdata('msg', 'deleted');
@@ -79,7 +79,7 @@ class Book extends CI_Controller
 
     public function damagedbooks()
     {
-        $reserve['damageddetails'] = $this->user_model->damaged_books();
+        $reserve['damageddetails'] = $this->book_model->damaged_books();
 
         $object['controller'] = $this;
         $object['active_tab'] = "damagedbooks";
@@ -93,8 +93,8 @@ class Book extends CI_Controller
     }
     public function add_damagedbook()
     {
-        $this->load->model('user_model');
-        $data = $this->user_model->addamaged();
+        $this->load->model('book_model');
+        $data = $this->book_model->addamaged();
         if ($data) {
             $this->session->set_flashdata('msg', 'success');
             redirect('Book/damagedbooks');
@@ -103,8 +103,8 @@ class Book extends CI_Controller
 
     public function update_damagedbooks()
     {
-        $this->load->model('user_model');
-        $data = $this->user_model->update_damagedbook();
+        $this->load->model('book_model');
+        $data = $this->book_model->update_damagedbook();
 
         if ($data) {
             $this->session->set_flashdata('msg', 'update_success');
@@ -114,8 +114,8 @@ class Book extends CI_Controller
 
     public function delete_damagedbook()
     {
-        $this->load->model('user_model');
-        $data = $this->user_model->delete_damagedbooks();
+        $this->load->model('book_model');
+        $data = $this->book_model->delete_damagedbooks();
 
         if ($data) {
             $this->session->set_flashdata('msg', 'deleted');
@@ -125,8 +125,8 @@ class Book extends CI_Controller
 
     public function updatebookcopy()
     {
-        $this->load->model('user_model');
-        $data = $this->user_model->update_bookcopy();
+        $this->load->model('book_model');
+        $data = $this->book_model->update_bookcopy();
 
         if ($data) {
             $this->session->set_flashdata('msg', 'update_success');

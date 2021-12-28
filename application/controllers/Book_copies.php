@@ -7,7 +7,7 @@ class Book_copies extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('user_model');
+        $this->load->model('bookcopy_model');
     }
 
     /**
@@ -29,7 +29,7 @@ class Book_copies extends CI_Controller
 
 
     {
-        $book['bookcopydetails'] = $this->user_model->get_bookcopies();
+        $book['bookcopydetails'] = $this->bookcopy_model->get_bookcopies();
 
         $object['controller'] = $this;
         $object['active_tab'] = "book_copies";
@@ -45,8 +45,8 @@ class Book_copies extends CI_Controller
 
     public function addbookcopy()
     {
-        $this->load->model('user_model');
-        $data = $this->user_model->insert_bookcopy();
+        $this->load->model('bookcopy_model');
+        $data = $this->bookcopy_model->insert_bookcopy();
 
         if ($data) {
             $this->session->set_flashdata('msg', 'success');
@@ -57,7 +57,7 @@ class Book_copies extends CI_Controller
     public function getbookcopyByID()
     {
 
-        $book['bookcopydetails'] = $this->user_model->getbookscopyByID();
+        $book['bookcopydetails'] = $this->bookcopy_model->getbookscopyByID();
 
         $object['controller'] = $this;
         $object['active_tab'] = "book_copies";
@@ -72,8 +72,8 @@ class Book_copies extends CI_Controller
 
     public function updatebookcopy()
     {
-        $this->load->model('user_model');
-        $data = $this->user_model->update_bookcopy();
+        $this->load->model('bookcopy_model');
+        $data = $this->bookcopy_model->update_bookcopy();
 
         if ($data) {
             $this->session->set_flashdata('msg', 'update_success');
@@ -82,8 +82,8 @@ class Book_copies extends CI_Controller
     }
     public function deletebookcopy()
     {
-        $this->load->model('user_model');
-        $data = $this->user_model->delete_bookcopy();
+        $this->load->model('bookcopy_model');
+        $data = $this->bookcopy_model->delete_bookcopy();
 
         if ($data) {
             $this->session->set_flashdata('msg', 'deleted');

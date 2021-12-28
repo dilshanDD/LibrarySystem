@@ -105,7 +105,7 @@
                                                 <td> <?php echo $book['auth_firstname'] ?> </td>
                                                 <td> <?php echo $book['auth_lastname'] ?> </td>
 
-                                                <form action="../Book_copies/getbookcopyByID" method="POST">
+                                                <form action="Book_copies/getbookcopyByID" method="POST">
                                                     <td><button class="btn btn-outline-primary btn-sm rounded-0" name="book_id" value="<?php echo $book['book_id'] ?>" type="submit" data-toggle="tooltip" data-placement="top" title="View Book Copies"><i class="fa fa-eye"></i></button> </td>
                                                 </form>
                                                 <td><button class="btn btn-outline-primary btn-sm rounded-0  newcopybtn" type="button" data-toggle="tooltip" data-placement="top" title="Add New Book Copy"><i class="fa fa-table"></i></button> </td>
