@@ -117,14 +117,15 @@
                     <h4 class="modal-title">Add Damaged Book</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                 </div>
-                <form id="form_data" method="post" action="add_damagedbook">
+                <form id="form_add_damagedbook_data" method="post">
                     <div class="modal-body">
 
 
                         <div class="form-group">
                             <li class="fa fa-key">&nbsp;&nbsp;</li>
                             <label>Book Copy ID</label>
-                            <input class="form-control input-rounded" name="book_copyID" placeholder="Book Copy ID" type="text">
+                            <input class="form-control input-rounded" id="newbook_copyID" name="book_copyID" placeholder="Book Copy ID" type="text">
+                            <span id="newbook_copyID_error" class="text-danger"></span>
                         </div>
 
 
@@ -132,12 +133,14 @@
                             <li class="fa fa-envelope">&nbsp;&nbsp;</li>
                             <label>Damaged Date</label>
                             <input class="form-control input-rounded" type="text" name="damaged_date" placeholder="Damaged Date" id="datepicker1"></p>
+                            <span id="datepicker1_error" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
                             <li class="fa fa-eye">&nbsp;&nbsp;</li>
                             <label>Description</label>
-                            <input class="form-control input-rounded" name="description" placeholder="Description" type="text">
+                            <input class="form-control input-rounded" id="newDescription" name="description" placeholder="Description" type="text">
+                            <span id="newDescription_error" class="text-danger"></span>
                         </div>
 
 
@@ -257,6 +260,83 @@
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+
+<script>
+    //working
+    $(document).ready(function() {
+
+        $('#form_add_damagedbook_data').submit(function(event) {
+            event.preventDefault();
+
+
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo base_url() ?>Book/add_damagedbook",
+
+                data: $(this).serialize(),
+                dataType: 'json',
+
+                // beforeSend: function() {
+                //     $('#sub_btn').attr('disabled', 'disabled');
+                // },
+                success: function(data) {
+
+                    if (data.error) {
+
+                        console.log(data.error);
+
+                        if (data.newbook_copyID_error != '') {
+                            $('#newbook_copyID_error').html(data.newbook_copyID_error);
+                        } else {
+                            $('#newbook_copyID_error').html('');
+                        }
+
+                        if (data.datepicker1_error != '') {
+                            $('#datepicker1_error').html(data.datepicker1_error);
+                        } else {
+                            $('#datepicker1_error').html('');
+                        }
+
+                        if (data.newDescription_error != '') {
+                            $('#newDescription_error').html(data.newDescription_error);
+                        } else {
+                            $('#newDescription_error').html('');
+                        }
+
+
+
+                    } else if (data.success) {
+                        console.log(data.success);
+
+                        $('#modal-user').modal('hide');
+                        Swal.fire(
+                            'Data saved successfully !',
+                            '',
+                            'success'
+                        ).then(function() {
+                            window.location = "http://localhost:8080/LibrarySystem/Book/damagedbooks";
+                        });
+
+                    }
+
+
+
+                }
+
+
+
+            });
+
+
+        });
+
+    });
+</script>
+
+
+
 
 <script>
     $(document).ready(function() {

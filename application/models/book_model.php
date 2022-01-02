@@ -156,10 +156,10 @@ class book_model extends CI_Model
         $this->db->where('book_copyID = ', $ddata['book_copyID']);
         $bkcopydata = $this->db->update('book_copy', $bookcopydata);
 
-        if ($damagedbkData == true && $bkcopydata == true) {
-            return true;
-        }
-        return false;
+        // if ($damagedbkData == true && $bkcopydata == true) {
+        //     return true;
+        // }
+        // return false;
     }
 
     public function update_damagedbook()

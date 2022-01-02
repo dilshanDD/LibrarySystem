@@ -121,12 +121,38 @@ class Book extends CI_Controller
     }
     public function add_damagedbook()
     {
-        $this->load->model('book_model');
-        $data = $this->book_model->addamaged();
-        if ($data) {
-            $this->session->set_flashdata('msg', 'success');
-            redirect('Book/damagedbooks');
+
+
+
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('book_copyID', 'Book copy ID', 'required');
+        $this->form_validation->set_rules('damaged_date', 'Damaged date', 'required');
+        $this->form_validation->set_rules('description', 'Description', 'required');
+
+
+
+        if ($this->form_validation->run()) {
+
+            $array = array(
+                'success' => 'Success !!'
+            );
+
+            $this->load->model('book_model');
+            $this->book_model->addamaged();
+        } else {
+
+            $array = array(
+
+                'error' => 'Error !!',  // keys
+                'newbook_copyID_error' => form_error('book_copyID'),
+                'datepicker1_error' => form_error('damaged_date'),
+                'newDescription_error' => form_error('description')
+
+            );
         }
+
+        echo json_encode($array);
     }
 
     public function update_damagedbooks()
