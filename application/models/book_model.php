@@ -64,7 +64,7 @@ class book_model extends CI_Model
             'auth_lastname' => $this->input->post('auth_lastname', TRUE),
 
         );
-        return $this->db->insert('books', $bdata);
+        $this->db->insert('books', $bdata);
     }
 
     public function update_book()

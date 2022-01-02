@@ -8,6 +8,8 @@ class Book extends CI_Controller
     {
         parent::__construct();
         $this->load->model('book_model');
+        // Load base_url
+        $this->load->helper('url');
     }
 
     /**
@@ -46,13 +48,39 @@ class Book extends CI_Controller
 
     public function addbooks()
     {
-        $this->load->model('book_model');
-        $data = $this->book_model->insert_book();
 
-        if ($data) {
-            $this->session->set_flashdata('msg', 'success');
-            redirect('Book');
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('book_tittle', 'Book tittle', 'required');
+        $this->form_validation->set_rules('edition', 'Edition', 'required');
+        $this->form_validation->set_rules('category', 'Category', 'required');
+        $this->form_validation->set_rules('auth_firstname', 'Author First Name', 'required');
+        $this->form_validation->set_rules('auth_lastname', 'Author Last Name', 'required');
+
+
+        if ($this->form_validation->run()) {
+
+            $array = array(
+                'success' => 'Success !!'
+            );
+
+            $this->load->model('book_model');
+            $this->book_model->insert_book();
+        } else {
+
+            $array = array(
+
+                'error' => 'Error !!',  // keys
+                'newbook_tittle_error' => form_error('book_tittle'),
+                'newedition_error' => form_error('edition'),
+                'newcategory_error' => form_error('category'),
+                'newauth_firstname_error' => form_error('auth_firstname'),
+                'newauth_lastname_error' => form_error('auth_lastname'),
+
+            );
         }
+
+        echo json_encode($array);
     }
     public function updatebook()
     {

@@ -155,7 +155,7 @@
                     <h4 class="modal-title">Add New Book Copy</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                 </div>
-                <form id="form_data" method="post" action="Book_copies/addbookcopy">
+                <form id="form_add_bookcopy_data" method="post" action="Book_copies/addbookcopy">
                     <div class="modal-body">
 
 
@@ -215,40 +215,44 @@
                     <h4 class="modal-title">Add New Book</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                 </div>
-                <form id="form_data" method="post" action="Book/addbooks">
+                <form id="form_add_book_data" method="post">
                     <div class="modal-body">
 
 
                         <div class="form-group">
                             <li class="fa fa-user">&nbsp;&nbsp;</li>
                             <label>Book Tittle</label>
-                            <input class="form-control input-rounded" name="book_tittle" placeholder="Book Tittle" type="text">
-
+                            <input class="form-control input-rounded" id="newbook_tittle" name="book_tittle" placeholder="Book Tittle" type="text">
+                            <span id="newbook_tittle_error" class="text-danger"></span>
                         </div>
 
 
                         <div class="form-group">
                             <li class="fa fa-key">&nbsp;&nbsp;</li>
                             <label>Edition</label>
-                            <input class="form-control input-rounded" name="edition" placeholder="Eddition" type="text">
+                            <input class="form-control input-rounded" id="newedition" name="edition" placeholder="Eddition" type="text">
+                            <span id="newedition_error" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
                             <li class="fa fa-envelope">&nbsp;&nbsp;</li>
                             <label>Category</label>
-                            <input class="form-control input-rounded" name="category" placeholder="Category" type="text">
+                            <input class="form-control input-rounded" id="newcategory" name="category" placeholder="Category" type="text">
+                            <span id="newcategory_error" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
                             <li class="fa fa-eye">&nbsp;&nbsp;</li>
                             <label>Author first name</label>
-                            <input class="form-control input-rounded" name="auth_firstname" placeholder="Author first name" type="text">
+                            <input class="form-control input-rounded" id="newauth_firstname" name="auth_firstname" placeholder="Author first name" type="text">
+                            <span id="newauth_firstname_error" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
                             <li class="fa fa-eye">&nbsp;&nbsp;</li>
                             <label>Author last name</label>
-                            <input class="form-control input-rounded" name="auth_lastname" placeholder="Author last name" type="text">
+                            <input class="form-control input-rounded" id="newauth_lastname" name="auth_lastname" placeholder="Author last name" type="text">
+                            <span id="newauth_lastname_error" class="text-danger"></span>
                         </div>
 
 
@@ -381,6 +385,96 @@
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+
+<script>
+    //working
+    $(document).ready(function() {
+
+        $('#form_add_book_data').submit(function(event) {
+            event.preventDefault();
+
+
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo base_url() ?>Book/addbooks",
+
+                data: $(this).serialize(),
+                dataType: 'json',
+
+                // beforeSend: function() {
+                //     $('#sub_btn').attr('disabled', 'disabled');
+                // },
+                success: function(data) {
+
+                    if (data.error) {
+
+                        console.log(data.error);
+
+                        if (data.newbook_tittle_error != '') {
+                            $('#newbook_tittle_error').html(data.newbook_tittle_error);
+                        } else {
+                            $('#newbook_tittle_error').html('');
+                        }
+
+                        if (data.newedition_error != '') {
+                            $('#newedition_error').html(data.newedition_error);
+                        } else {
+                            $('#newedition_error').html('');
+                        }
+
+                        if (data.newcategory_error != '') {
+                            $('#newcategory_error').html(data.newcategory_error);
+                        } else {
+                            $('#newcategory_error').html('');
+                        }
+
+                        if (data.newauth_firstname_error != '') {
+                            $('#newauth_firstname_error').html(data.newauth_firstname_error);
+                        } else {
+                            $('#newauth_firstname_error').html('');
+                        }
+
+                        if (data.newauth_lastname_error != '') {
+                            $('#newauth_lastname_error').html(data.newauth_lastname_error);
+                        } else {
+                            $('#newauth_lastname_error').html('');
+                        }
+
+
+                    } else if (data.success) {
+                        console.log(data.success);
+
+                        $('#modal-user').modal('hide');
+                        Swal.fire(
+                            'Data saved successfully !',
+                            '',
+                            'success'
+                        ).then(function() {
+                            window.location = "http://localhost:8080/LibrarySystem/Book";
+                        });
+
+                    }
+
+
+
+                }
+
+
+
+            });
+
+
+        });
+
+    });
+</script>
+
+
+
+
+
 
 <script>
     $(document).ready(function() {
