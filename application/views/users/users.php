@@ -11,11 +11,11 @@
     function LoadFunction() {
 
         <?php
-        if ($this->session->flashdata('msg') == 'success') {
+        if ($this->session->flashdata('msg') == 'save') {
 
         ?>
             Swal.fire(
-                'Data Saved Successfully !',
+                'Data',
                 '',
                 'success'
             )
@@ -41,30 +41,6 @@
         ?>
     }
 </script>
-
-
-<!-- <script>
-    $(function() {
-
-        $("#form_newUser").validate({
-            rules: {
-                name: {
-                    required: true,
-                    minlength: 8
-                },
-                action: "required"
-            },
-            messages: {
-                pName: {
-                    required: "Please enter some data",
-                    minlength: "Your data must be at least 8 characters"
-                },
-                action: "Please provide some data"
-            }
-        });
-    });
-</script> -->
-
 
 <div class="wrapper">
     <!-- Navbar -->
@@ -399,12 +375,12 @@
 
             console.log(data);
 
-            $('#staff_ID').val(data[0]);
-            $('#name').val(data[1]);
-            $('#email').val(data[2]);
-            $('#NIC').val(data[3]);
-            $('#phone').val(data[4]);
-            $('#username').val(data[5]);
+            $('#Astaff_ID').val(data[0]);
+            $('#Aname').val(data[1]);
+            $('#Aemail').val(data[2]);
+            $('#ANIC').val(data[3]);
+            $('#Aphone').val(data[4]);
+            $('#Ausername').val(data[5]);
 
         });
     });
@@ -512,7 +488,7 @@
                             '',
                             'success'
                         ).then(function() {
-                            window.location = "http://localhost:8080/LibrarySystem/index.php/Staff";
+                            window.location = "http://localhost:8080/LibrarySystem/Staff";
                         });
 
                     }

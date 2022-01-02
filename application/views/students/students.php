@@ -164,7 +164,7 @@
                     <h4 class="modal-title">Add New Student</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                 </div>
-                <form id="form_data" method="post" action="Student/Add_student">
+                <form id="form_Add_student_data" method="post">
 
                     <div class="modal-body">
 
@@ -181,45 +181,53 @@
                             <li class="far fa-user-circle">&nbsp;&nbsp;</li>
                             <label>NIC</label>
 
-                            <input class="form-control input-rounded" name="NIC" placeholder="NIC" type="text">
+                            <input class="form-control input-rounded" id="newNIC" name="NIC" placeholder="NIC" type="text">
+                            <span id="newNIC_error" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <li class="fa fa-envelope">&nbsp;&nbsp;</li>
                             <label>Email</label>
-                            <input class="form-control input-rounded" name="email" placeholder="Email" type="email">
+                            <input class="form-control input-rounded" id="newemail" name="email" placeholder="Email" type="email">
+                            <span id="newemail_error" class="text-danger"></span>
+
                         </div>
 
                         <div class="form-group">
                             <li class="fas fa-phone">&nbsp;&nbsp;</li>
                             <label>Phone</label>
-                            <input class="form-control input-rounded" name="phone" placeholder="phone" type="text">
+                            <input class="form-control input-rounded" id="newphone" name="phone" placeholder="phone" type="text">
+                            <span id="newphone_error" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
                             <li class="fa fa-user">&nbsp;&nbsp;</li>
                             <label>Address</label>
                             <br />
-                            <input class="form-control input-rounded" name="address" placeholder="Address" type="text">
+                            <input class="form-control input-rounded" id="newaddress" name="address" placeholder="Address" type="text">
+                            <span id="newaddress_error" class="text-danger"></span>
 
                         </div>
                         <div class="form-group">
                             <li class="fa fa-user">&nbsp;&nbsp;</li>
                             <label>First Name</label>
                             <br />
-                            <input class="form-control input-rounded" name="first_name" placeholder="First Name" type="text">
+                            <input class="form-control input-rounded" id="newfirst_name" name="first_name" placeholder="First Name" type="text">
+                            <span id="newfirst_name_error" class="text-danger"></span>
 
                         </div>
                         <div class="form-group">
                             <li class="fa fa-user">&nbsp;&nbsp;</li>
                             <label>Last Name</label>
                             <br />
-                            <input class="form-control input-rounded" name="last_name" placeholder="Last Name" type="text">
+                            <input class="form-control input-rounded" id="newlast_name" name="last_name" placeholder="Last Name" type="text">
+                            <span id="newlast_name_error" class="text-danger"></span>
 
                         </div>
                         <div class="form-group">
                             <li class="fa fa-envelope">&nbsp;&nbsp;</li>
                             <label>Registered Date</label>
-                            <input class="form-control input-rounded" name="registered_date" id="datepicker" type="text"></p>
+                            <input class="form-control input-rounded" id="datepicker" name="registered_date" type="text"></p>
+                            <span id="datepicker_error" class="text-danger"></span>
                         </div>
 
 
@@ -441,6 +449,108 @@
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+
+
+
+<script>
+    //working
+    $(document).ready(function() {
+
+        $('#form_Add_student_data').submit(function(event) {
+            event.preventDefault();
+
+
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo base_url() ?>Student/Add_student",
+
+                data: $(this).serialize(),
+                dataType: 'json',
+
+                // beforeSend: function() {
+                //     $('#sub_btn').attr('disabled', 'disabled');
+                // },
+                success: function(data) {
+
+                    if (data.error) {
+
+                        console.log(data.error);
+
+                        if (data.newNIC_error != '') {
+                            $('#newNIC_error').html(data.newNIC_error);
+                        } else {
+                            $('#newNIC_error').html('');
+                        }
+
+                        if (data.newemail_error != '') {
+                            $('#newemail_error').html(data.newemail_error);
+                        } else {
+                            $('#newemail_error').html('');
+                        }
+
+                        if (data.newphone_error != '') {
+                            $('#newphone_error').html(data.newphone_error);
+                        } else {
+                            $('#newphone_error').html('');
+                        }
+
+                        if (data.newaddress_error != '') {
+                            $('#newaddress_error').html(data.newaddress_error);
+                        } else {
+                            $('#newaddress_error').html('');
+                        }
+
+                        if (data.newfirst_name_error != '') {
+                            $('#newfirst_name_error').html(data.newfirst_name_error);
+                        } else {
+                            $('#newfirst_name_error').html('');
+                        }
+
+                        if (data.newlast_name_error != '') {
+                            $('#newlast_name_error').html(data.newlast_name_error);
+                        } else {
+                            $('#newlast_name_error').html('');
+                        }
+
+                        if (data.datepicker_error != '') {
+                            $('#datepicker_error').html(data.datepicker_error);
+                        } else {
+                            $('#datepicker_error').html('');
+                        }
+
+
+
+
+                    } else if (data.success) {
+                        console.log(data.success);
+
+                        $('#modal-default').modal('hide');
+                        Swal.fire(
+                            'Data saved successfully !',
+                            '',
+                            'success'
+                        ).then(function() {
+                            window.location = "http://localhost:8080/LibrarySystem/Student";
+                        });
+
+                    }
+
+
+
+                }
+
+
+
+            });
+
+
+        });
+
+    });
+</script>
+
 
 
 <script>

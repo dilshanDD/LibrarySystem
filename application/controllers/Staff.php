@@ -100,13 +100,11 @@ class Staff extends CI_Controller
         if ($this->form_validation->run()) {
 
             $array = array(
-                'success' => 'Success !!' 
+                'success' => 'Success !!'
             );
 
             $this->load->model('user_model');
             $this->user_model->insert_user();
-          
-
         } else {
 
             $array = array(

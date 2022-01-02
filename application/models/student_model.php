@@ -65,7 +65,7 @@ class student_model extends CI_Model
             'registered_date' => $this->input->post('registered_date', TRUE),
 
         );
-        return $this->db->insert('students', $bdata);
+        $this->db->insert('students', $bdata);
     }
 
     public function update_student()

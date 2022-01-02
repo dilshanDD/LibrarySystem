@@ -8,6 +8,7 @@ class Student extends CI_Controller
     {
         parent::__construct();
         $this->load->model('student_model');
+        $this->load->helper('url');
     }
 
     /**
@@ -41,12 +42,43 @@ class Student extends CI_Controller
 
     public function Add_student()
     {
-        $this->load->model('student_model');
-        $data = $this->student_model->addStudent();
-        if ($data) {
-            $this->session->set_flashdata('msg', 'success');
-            redirect('Student');
+
+
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('NIC', 'NIC', 'required');
+        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+        $this->form_validation->set_rules('phone', 'Phone number', 'required');
+        $this->form_validation->set_rules('address', 'Address', 'required');
+        $this->form_validation->set_rules('first_name', 'First Name', 'required');
+        $this->form_validation->set_rules('last_name', 'Last Name', 'required');
+        $this->form_validation->set_rules('registered_date', 'Registered Date', 'required');
+
+
+        if ($this->form_validation->run()) {
+
+            $array = array(
+                'success' => 'Success !!'
+            );
+
+            $this->load->model('student_model');
+            $this->student_model->addStudent();
+        } else {
+
+            $array = array(
+
+                'error' => 'Error !!',  // keys
+                'newNIC_error' => form_error('NIC'),
+                'newemail_error' => form_error('email'),
+                'newphone_error' => form_error('phone'),
+                'newaddress_error' => form_error('address'),
+                'newfirst_name_error' => form_error('first_name'),
+                'newlast_name_error' => form_error('last_name'),
+                'datepicker_error' => form_error('registered_date')
+            );
         }
+
+        echo json_encode($array);
     }
 
     public function updateStudent()
