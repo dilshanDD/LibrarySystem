@@ -85,13 +85,44 @@ class Staff extends CI_Controller
 
     public function register_users()
     {
-        $this->load->model('user_model');
-        $data = $this->user_model->insert_user();
 
-        if ($data) {
-            $this->session->set_flashdata('msg', 'success');
-            redirect('Staff');
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('name', 'Staff Name', 'required');
+        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+        $this->form_validation->set_rules('NIC', 'NIC', 'required');
+        $this->form_validation->set_rules('phone', 'Phone Number', 'required');
+        $this->form_validation->set_rules('username', 'User Name', 'required');
+        $this->form_validation->set_rules('password', 'Password', 'required');
+        $this->form_validation->set_rules('confirm_password', 'Confirm Password', 'required|matches[password]');
+
+
+        if ($this->form_validation->run()) {
+
+            $array = array(
+                'success' => 'Success !!' 
+            );
+
+            $this->load->model('user_model');
+            $this->user_model->insert_user();
+          
+
+        } else {
+
+            $array = array(
+
+                'error' => 'Error !!',  // keys
+                'name_error' => form_error('name'),
+                'email_error' => form_error('email'),
+                'NIC_error' => form_error('NIC'),
+                'phone_error' => form_error('phone'),
+                'username_error' => form_error('username'),
+                'password_error' => form_error('password'),
+                'confirm_password_error' => form_error('confirm_password')
+            );
         }
+
+        echo json_encode($array);
     }
 
     public function updateuser()

@@ -80,8 +80,7 @@ class user_model extends CI_Model
             'password' => $this->input->post('password', TRUE), // sha1           
 
         );
-
-        return  $this->db->insert('staff', $udata);
+        $this->db->insert('staff', $udata);
     }
 
     public function update_user()
@@ -113,5 +112,4 @@ class user_model extends CI_Model
         $this->db->delete('staff');
         return true;
     }
-   
 }
