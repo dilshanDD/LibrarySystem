@@ -8,6 +8,8 @@ class Borrow_books extends CI_Controller
     {
         parent::__construct();
         $this->load->model('borrowbook_model');
+        // Load base_url
+        $this->load->helper('url');
     }
 
     /**
@@ -45,13 +47,36 @@ class Borrow_books extends CI_Controller
 
     public function addBorrowBook()
     {
-        $this->load->model('borrowbook_model');
-        $data = $this->borrowbook_model->addBorrow_books();
 
-        if ($data) {
-            $this->session->set_flashdata('msg', 'success');
-            redirect('Borrow_books');
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('studentID', 'Student ID', 'required');
+        $this->form_validation->set_rules('book_copyID', 'Book Copy ID', 'required');
+        $this->form_validation->set_rules('checkout_date', 'Checkout Date', 'required');
+        $this->form_validation->set_rules('return_date', 'Return Date', 'required');
+
+
+        if ($this->form_validation->run()) {
+
+            $array = array(
+                'success' => 'Success !!'
+            );
+
+            $this->load->model('borrowbook_model');
+            $this->borrowbook_model->addBorrow_books();
+        } else {
+
+            $array = array(
+
+                'error' => 'Error !!',  // keys
+                'newstudentID_error' => form_error('studentID'),
+                'newbook_copyID_error' => form_error('book_copyID'),
+                'datepicker1_error' => form_error('checkout_date'),
+                'datepicker2_error' => form_error('return_date')
+            );
         }
+
+        echo json_encode($array);
     }
     public function update_borrowbook()
     {

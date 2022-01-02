@@ -36,7 +36,7 @@ class borrowbook_model extends CI_Model
             'status' => $this->input->post('status', TRUE),
 
         );
-        return $this->db->insert('borrow_book', $bdata);
+        $this->db->insert('borrow_book', $bdata);
     }
 
     public function update_borrowbooks()

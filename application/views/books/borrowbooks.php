@@ -284,14 +284,15 @@
                     <h4 class="modal-title">Borrow</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                 </div>
-                <form id="form_data" method="post" action="Borrow_books/addBorrowBook">
+                <form id="form_add_bookborrow_data" method="post">
                     <div class="modal-body">
 
 
                         <div class="form-group">
                             <li class="fa fa-user">&nbsp;&nbsp;</li>
                             <label>Student ID</label>
-                            <input class="form-control input-rounded" name="studentID" placeholder="Student ID" type="text">
+                            <input class="form-control input-rounded" id="newstudentID" name="studentID" placeholder="Student ID" type="text">
+                            <span id="newstudentID_error" class="text-danger"></span>
 
                         </div>
 
@@ -299,19 +300,22 @@
                         <div class="form-group">
                             <li class="fa fa-key">&nbsp;&nbsp;</li>
                             <label>Book Copy ID</label>
-                            <input class="form-control input-rounded" name="book_copyID" placeholder="Book Copy ID" type="text">
+                            <input class="form-control input-rounded" id="newbook_copyID" name="book_copyID" placeholder="Book Copy ID" type="text">
+                            <span id="newbook_copyID_error" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
                             <li class="fa fa-envelope">&nbsp;&nbsp;</li>
                             <label>Checkout Date</label>
                             <input class="form-control input-rounded" type="text" name="checkout_date" placeholder="Checkout Date" id="datepicker1"></p>
+                            <span id="datepicker1_error" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
                             <li class="fa fa-envelope">&nbsp;&nbsp;</li>
                             <label>Return Date</label>
                             <input class="form-control input-rounded" type="text" name="return_date" placeholder="Return Date" id="datepicker2"></p>
+                            <span id="datepicker2_error" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
@@ -406,6 +410,90 @@
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+
+
+<script>
+    //working
+    $(document).ready(function() {
+
+        $('#form_add_bookborrow_data').submit(function(event) {
+            event.preventDefault();
+
+
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo base_url() ?>Borrow_books/addBorrowBook",
+
+                data: $(this).serialize(),
+                dataType: 'json',
+
+                // beforeSend: function() {
+                //     $('#sub_btn').attr('disabled', 'disabled');
+                // },
+                success: function(data) {
+
+                    if (data.error) {
+
+                        console.log(data.error);
+
+                        if (data.newstudentID_error != '') {
+                            $('#newstudentID_error').html(data.newstudentID_error);
+                        } else {
+                            $('#newstudentID_error').html('');
+                        }
+
+                        if (data.newbook_copyID_error != '') {
+                            $('#newbook_copyID_error').html(data.newbook_copyID_error);
+                        } else {
+                            $('#newbook_copyID_error').html('');
+                        }
+
+                        if (data.datepicker1_error != '') {
+                            $('#datepicker1_error').html(data.datepicker1_error);
+                        } else {
+                            $('#datepicker1_error').html('');
+                        }
+
+                        if (data.datepicker2_error != '') {
+                            $('#datepicker2_error').html(data.datepicker2_error);
+                        } else {
+                            $('#datepicker2_error').html('');
+                        }
+
+
+
+                    } else if (data.success) {
+                        console.log(data.success);
+
+                        $('#modal-user').modal('hide');
+                        Swal.fire(
+                            'Data saved successfully !',
+                            '',
+                            'success'
+                        ).then(function() {
+                            window.location = "http://localhost:8080/LibrarySystem/Borrow_books";
+                        });
+
+                    }
+
+
+
+                }
+
+
+
+            });
+
+
+        });
+
+    });
+</script>
+
+
+
 
 <script>
     $(document).ready(function() {
