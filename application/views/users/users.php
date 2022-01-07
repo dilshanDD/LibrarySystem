@@ -71,8 +71,8 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Manage Users &nbsp; &nbsp; </h3>
-                                <button id="add_new_user" class="btn btn-primary" data-toggle="modal" data-target="#modal-default"><i class="fa fa-plus"></i> &nbsp;&nbsp; New User</button>
+                                <h3 class="card-title">Manage Staff &nbsp; &nbsp; </h3>
+                                <button id="add_new_user" class="btn btn-primary" data-toggle="modal" data-target="#modal-default"><i class="fa fa-plus"></i> &nbsp;&nbsp; New Staff Member</button>
 
                             </div>
                             <!-- /.card-header -->
@@ -149,7 +149,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Add New User</h4>
+                    <h4 class="modal-title">Add Staff Member</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                 </div>
 
@@ -242,7 +242,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Update User</h4>
+                    <h4 class="modal-title">Update Staff Member</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                 </div>
                 <form id="form_data" method="post" action="Staff/updateuser">

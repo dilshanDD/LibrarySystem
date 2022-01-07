@@ -276,7 +276,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Update</h4>
+                    <h4 class="modal-title">Update Book</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                 </div>
                 <form id="form_data" method="post" action="book/updatebook">

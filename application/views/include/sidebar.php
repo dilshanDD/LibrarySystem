@@ -95,8 +95,8 @@ if (!isset($active_main_tab))
                 </li>
 
 
-                <li class="nav-item has-treeview <?php if ($active_main_tab == 'Books' || $active_tab == 'managebooks' || $active_tab == 'book_copies' || $active_tab == 'borrowbook'  || $active_tab == 'addbooks' || $active_tab == 'issuebooks' || $active_tab == 'returnbooks' || $active_tab == 'borrowedbooks' || $active_tab == 'damagedbooks') echo "menu-open" ?> ">
-                    <a href="#" class="nav-link <?php if ($active_main_tab == 'Books' || $active_tab == 'managebooks' || $active_tab == 'book_copies' || $active_tab == 'borrowbook'  || $active_tab == 'addbooks' || $active_tab == 'issuebooks' || $active_tab == 'returnbooks' ||  $active_tab == 'borrowedbooks' || $active_tab == 'damagedbooks') echo "active" ?>">
+                <li class="nav-item has-treeview <?php if ($active_main_tab == 'Books' || $active_tab == 'managebooks' || $active_tab == 'book_copies' || $active_tab == 'borrowbook'  || $active_tab == 'addbooks' || $active_tab == 'issuebooks' || $active_tab == 'returnbooks' || $active_tab == 'borrowedbooks' ||  $active_tab == 'returnpay' ||  $active_tab == 'damagedbooks') echo "menu-open" ?> ">
+                    <a href="#" class="nav-link <?php if ($active_main_tab == 'Books' || $active_tab == 'managebooks' || $active_tab == 'book_copies' || $active_tab == 'borrowbook'  || $active_tab == 'addbooks' || $active_tab == 'issuebooks' || $active_tab == 'returnbooks' ||  $active_tab == 'borrowedbooks' ||  $active_tab == 'returnpay' || $active_tab == 'damagedbooks') echo "active" ?>">
                         <i class="fas fa-book"></i>
                         <p>
                             Books
@@ -125,6 +125,13 @@ if (!isset($active_main_tab))
                             <a href="<?php echo base_url() ?>Borrow_books" class="nav-link <?php if ($active_tab == 'borrowbook') echo "active" ?>">
                                 <i class="nav-icon far fa-circle text-info"></i>
                                 <p>Borrow Books</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="<?php echo base_url() ?>Return_payments" class="nav-link <?php if ($active_tab == 'returnpay') echo "active" ?>">
+                                <i class="nav-icon far fa-circle text-info"></i>
+                                <p>Late return payments</p>
                             </a>
                         </li>
 

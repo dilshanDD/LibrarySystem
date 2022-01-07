@@ -80,7 +80,9 @@
                                             <th>Return Date</th>
                                             <th>Status</th>
                                             <th>Update</th>
+                                            <th>Pay late return</th>
                                             <th>Return</th>
+
 
 
                                         </tr>
@@ -99,8 +101,8 @@
                                                 <td> <?php echo $book['return_date'] ?> </td>
                                                 <td> <?php echo $book['status'] ?> </td>
                                                 <td> <button class="btn btn-outline-success btn-sm rounded-0  updatebtn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button> </td>
+                                                <td> <button class="btn btn-outline-warning btn-sm rounded-0  payreturnbtn" type="button" data-toggle="tooltip" data-placement="top" title="Return Book"><i class="fa fa-edit"></i></button> </td>
                                                 <td> <button class="btn btn-outline-warning btn-sm rounded-0  returnbtn" type="button" data-toggle="tooltip" data-placement="top" title="Return Book"><i class="fa fa-edit"></i></button> </td>
-
                                             </tr>
 
 
@@ -117,7 +119,9 @@
                                             <th>Return Date</th>
                                             <th>Status</th>
                                             <th>Update</th>
+                                            <th>Pay late return</th>
                                             <th>Return</th>
+
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -138,76 +142,7 @@
 
 
 
-    <div class="modal fade" id="view_bookcopy">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Copies</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-                </div>
-                <div class="card-body">
-                    <form action=" " method="POST">
 
-
-                        <button type="button" class="btn btn-success">Refresh</button>
-
-
-                    </form>
-
-
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>Book copy ID</th>
-                                <th>Book ID</th>
-                                <th>Status</th>
-                                <th>Purchase Date</th>
-                                <th>Price</th>
-
-
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            foreach ($bookdetails  as $bookcopy) {
-
-                            ?>
-
-                                <tr>
-
-                                    <td> <?php echo $bookcopy['book_id'] ?> </td>
-                                    <td> <?php  ?> </td>
-                                    <td> <?php  ?> </td>
-                                    <td> <?php ?> </td>
-                                    <td> <?php  ?> </td>
-
-
-                                </tr>
-
-
-                            <?php
-                            }
-
-                            ?>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Book copy ID</th>
-                                <th>Book ID</th>
-                                <th>Status</th>
-                                <th>Purchase Date</th>
-                                <th>Price</th>
-
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
 
     <div class="modal fade" id="update_borrow">
         <div class="modal-dialog">
@@ -403,6 +338,75 @@
         <!-- /.update modal-content -->
     </div>
 
+
+
+
+    <div class="modal fade" id="modal-paylate">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Pay Late return</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                </div>
+                <form id="form_late_return_payment_data" method="post">
+                    <div class="modal-body">
+
+
+                        <div class="form-group">
+                            <li class="fa fa-user">&nbsp;&nbsp;</li>
+                            <label>Student ID</label>
+                            <input class="form-control input-rounded" id="paystudentID" name="student_id" type="text">
+                            <span id="paystudentID_error" class="text-danger"></span>
+
+                        </div>
+
+
+                        <div class="form-group">
+                            <li class="fa fa-key">&nbsp;&nbsp;</li>
+                            <label>Book Copy ID</label>
+                            <input class="form-control input-rounded" id="paybook_copyID" name="book_copyID" type="text">
+                            <span id="paybook_copyID_error" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <li class="fa fa-envelope">&nbsp;&nbsp;</li>
+                            <label>Date</label>
+                            <input class="form-control input-rounded" type="text" name="date" placeholder="Date" id="paydatepicker"></p>
+                            <span id="paydatepick_error" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <li class="fa fa-envelope">&nbsp;&nbsp;</li>
+                            <label>Fine amount</label>
+                            <input class="form-control input-rounded" type="text" name="fine_amount" placeholder="Fine amount" id="payfine_amount"></p>
+                            <span id="payfine_amount_error" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <li class="fas fa-user-shield">&nbsp;&nbsp;</li>
+                            <label>Description</label>
+                            <input class="form-control input-rounded" type="text" name="description" placeholder="Description" id="pay_description"></p>
+                            <span id="pay_description_error" class="text-danger"></span>
+
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <a href="javascript:;" class="btn btn-sm btn-white m-r-5 m-b-5" data-dismiss="modal">Close</a>
+
+                        <button type="submit" class="btn btn-sm btn-primary m-r-5 m-b-5 ">
+                            <i class="fa fa-user"></i>
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+
     <!-- /.modal-dialog -->
 </div>
 
@@ -410,6 +414,92 @@
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+
+
+<script>
+    //working
+    $(document).ready(function() {
+
+        $('#form_late_return_payment_data').submit(function(event) {
+            event.preventDefault();
+
+
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo base_url() ?>Return_payments/addReturnPayment",
+
+                data: $(this).serialize(),
+                dataType: 'json',
+
+                // beforeSend: function() {
+                //     $('#sub_btn').attr('disabled', 'disabled');
+                // },
+                success: function(data) {
+
+                    if (data.error) {
+
+                        console.log(data.error);
+
+                        if (data.paystudentID_error != '') {
+                            $('#paystudentID_error').html(data.paystudentID_error);
+                        } else {
+                            $('#paystudentID_error').html('');
+                        }
+
+                        if (data.paybook_copyID_error != '') {
+                            $('#paybook_copyID_error').html(data.paybook_copyID_error);
+                        } else {
+                            $('#paybook_copyID_error').html('');
+                        }
+
+                        if (data.paydatepick_error != '') {
+                            $('#paydatepick_error').html(data.paydatepick_error);
+                        } else {
+                            $('#paydatepick_error').html('');
+                        }
+
+                        if (data.payfine_amount_error != '') {
+                            $('#payfine_amount_error').html(data.payfine_amount_error);
+                        } else {
+                            $('#payfine_amount_error').html('');
+                        }
+                        if (data.pay_description_error != '') {
+                            $('#pay_description_error').html(data.pay_description_error);
+                        } else {
+                            $('#pay_description_error').html('');
+                        }
+
+
+
+                    } else if (data.success) {
+                        console.log(data.success);
+
+                        $('#modal-paylate').modal('hide');
+                        Swal.fire(
+                            'Data saved successfully !',
+                            '',
+                            'success'
+                        ).then(function() {
+                            window.location = "http://localhost:8080/LibrarySystem/Borrow_books";
+                        });
+
+                    }
+
+
+
+                }
+
+
+
+            });
+
+
+        });
+
+    });
+</script>
 
 
 
@@ -495,6 +585,7 @@
 
 
 
+
 <script>
     $(document).ready(function() {
         $('.returnbtn').on('click', function() {
@@ -549,6 +640,39 @@
     });
 </script>
 
+
+
+<script>
+    $(document).ready(function() {
+        $('.payreturnbtn').on('click', function() {
+
+
+            $('#modal-paylate').modal('show');
+
+            $tr = $(this).closest('tr');
+
+            var data = $tr.children("td").map(function() {
+                return $(this).text();
+            }).get();
+
+            console.log(data);
+
+            $('#paystudentID').val(data[0]);
+            $('#paybook_copyID').val(data[1]);
+
+
+
+
+
+
+        });
+    });
+</script>
+
+
+
+
+
 <script>
     $(function() {
 
@@ -594,6 +718,15 @@
     $(function() {
 
         $('#datepicker6').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+    });
+</script>
+
+<script>
+    $(function() {
+
+        $('#paydatepicker').datepicker({
             dateFormat: 'yy-mm-dd'
         });
     });

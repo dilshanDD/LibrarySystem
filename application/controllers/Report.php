@@ -293,9 +293,9 @@ class Report extends CI_Controller
         // set document information
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor('Dilshan');
-        $pdf->SetTitle('Damaged Books');
-        $pdf->SetSubject('Damaged Books');
-        $pdf->SetKeywords('Damaged Books');
+        $pdf->SetTitle('membershipPDF');
+        $pdf->SetSubject('membershipPDF');
+        $pdf->SetKeywords('membershipPDF');
 
         // set default header data
         //$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);

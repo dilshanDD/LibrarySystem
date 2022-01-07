@@ -8,7 +8,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Student Report</h1>
+                        <h1>Membership Income Report</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -32,7 +32,7 @@
                             </div>
 
 
-                            <form id="form_data" method="post" action="generate_student_pdf">
+                            <form id="form_data" method="post" action="generate_membershipIncome_pdf">
                                 <div class="modal-body">
                                     <!-- Date range -->
                                     <label>Select Date Range to generate Report</label>
