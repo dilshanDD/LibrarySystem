@@ -129,8 +129,6 @@ class borrowbook_model extends CI_Model
 
         );
 
-       $this->db->insert('late_return_fine', $ddata);
-
-       
+        $this->db->insert('late_return_fine', $ddata);
     }
 }

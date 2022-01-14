@@ -48,10 +48,12 @@ class Borrow_books extends CI_Controller
     public function addBorrowBook()
     {
 
+        $this->db->get('students');
+
         $this->load->library('form_validation');
 
-        $this->form_validation->set_rules('studentID', 'Student ID', 'required');
-        $this->form_validation->set_rules('book_copyID', 'Book Copy ID', 'required');
+        $this->form_validation->set_rules('studentID', 'Student ID', 'callback_checkstudentID'); //_callback as the prefix
+        $this->form_validation->set_rules('book_copyID', 'Book Copy ID', 'callback_checkbookcopyID');
         $this->form_validation->set_rules('checkout_date', 'Checkout Date', 'required');
         $this->form_validation->set_rules('return_date', 'Return Date', 'required');
 
@@ -78,6 +80,46 @@ class Borrow_books extends CI_Controller
 
         echo json_encode($array);
     }
+
+    public function checkstudentID($stid)
+    {
+
+        $this->db->where('student_ID', $stid);
+        $querya = $this->db->get('students');
+
+
+        //true
+        if ($querya->num_rows() > 0) {
+            return true;
+        } else {
+            $this->form_validation->set_message('checkstudentID', 'Please Insert a valid Student ID');
+            return FALSE;
+        }
+    }
+
+    public function checkbookcopyID($bkid)
+    {
+        $this->db->where('book_copyID', $bkid);
+        $querya = $this->db->get('book_copy');
+
+
+        //true
+        if ($querya->num_rows() > 0) {
+            return true;
+        } else {
+            $this->form_validation->set_message('checkbookcopyID', 'Please Insert a valid Book copy ID');
+            return FALSE;
+        }
+    }
+
+
+
+
+
+
+
+
+
     public function update_borrowbook()
     {
         $this->load->model('borrowbook_model');

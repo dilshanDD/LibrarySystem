@@ -47,7 +47,7 @@ class Student extends CI_Controller
         $this->load->library('form_validation');
 
         $this->form_validation->set_rules('NIC', 'NIC', 'required');
-        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|callback_checkemail');
         $this->form_validation->set_rules('phone', 'Phone number', 'required');
         $this->form_validation->set_rules('address', 'Address', 'required');
         $this->form_validation->set_rules('first_name', 'First Name', 'required');
@@ -80,6 +80,24 @@ class Student extends CI_Controller
 
         echo json_encode($array);
     }
+
+    public function checkemail($email)
+    {
+
+        $this->db->where('email', $email);
+        $querya = $this->db->get('students');
+
+
+        //true
+        if ($querya->num_rows() == 0) {
+            return true;
+        } else {
+            $this->form_validation->set_message('checkemail', 'Please insert a unique email !');
+            return FALSE;
+        }
+    }
+
+
 
     public function updateStudent()
     {

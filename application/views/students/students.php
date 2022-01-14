@@ -187,7 +187,7 @@
                         <div class="form-group">
                             <li class="fa fa-envelope">&nbsp;&nbsp;</li>
                             <label>Email</label>
-                            <input class="form-control input-rounded" id="newemail" name="email" placeholder="Email" type="email">
+                            <input class="form-control input-rounded" id="newemail" name="email" placeholder="Email" type="text">
                             <span id="newemail_error" class="text-danger"></span>
 
                         </div>

@@ -89,10 +89,10 @@ class Staff extends CI_Controller
         $this->load->library('form_validation');
 
         $this->form_validation->set_rules('name', 'Staff Name', 'required');
-        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|callback_checkemail');
         $this->form_validation->set_rules('NIC', 'NIC', 'required');
         $this->form_validation->set_rules('phone', 'Phone Number', 'required');
-        $this->form_validation->set_rules('username', 'User Name', 'required');
+        $this->form_validation->set_rules('username', 'User Name', 'required|callback_checkusername');
         $this->form_validation->set_rules('password', 'Password', 'required');
         $this->form_validation->set_rules('confirm_password', 'Confirm Password', 'required|matches[password]');
 
@@ -122,6 +122,41 @@ class Staff extends CI_Controller
 
         echo json_encode($array);
     }
+
+    public function checkemail($email)
+    {
+
+        $this->db->where('email', $email);
+        $querya = $this->db->get('staff');
+
+
+        //true
+        if ($querya->num_rows() == 0) {
+            return true;
+        } else {
+            $this->form_validation->set_message('checkemail', 'Please insert a unique email !');
+            return FALSE;
+        }
+    }
+
+    public function checkusername($user)
+    {
+
+        $this->db->where('username', $user);
+        $querya = $this->db->get('staff');
+
+
+        //true
+        if ($querya->num_rows() == 0) {
+            return true;
+        } else {
+            $this->form_validation->set_message('checkusername', 'Please insert a unique username !');
+            return FALSE;
+        }
+    }
+
+
+
 
     public function updateuser()
     {
